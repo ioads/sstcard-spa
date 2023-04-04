@@ -15,7 +15,7 @@
     <!-- Sidebar -->
     <div class="sidebar-fixed position-fixed">
       <a class="logo-wrapper"
-        ><img alt="" class="img-fluid" src="./assets/logo-mdb-vue-small.png"
+        ><img alt="" class="img-fluid" src="./assets/logo_sstcard.png"
       /></a>
       <mdb-list-group class="list-group-flush">
         <router-link to="/dashboard" @click.native="activeItem = 1">

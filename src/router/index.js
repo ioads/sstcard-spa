@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Guard from '../services/middleware'
 
 
 Vue.use(Router);
@@ -12,11 +13,18 @@ export default new Router({
       component: () => import('@/layout/Main.vue'),
       children: [
         {
-          path: 'dashboard',
+          path: '',
           name: 'dashboard',
+          beforeEnter: Guard.auth,
           component: () => import('@/components/Dashboard.vue'),
           props: { page: 1 },
           alias: '/'
+        },
+        {
+          path: 'clientes',
+          name: 'clientes',
+          component: () => import('@/components/clientes/Index.vue'),
+          props: { page: 2 },
         },
         {
           path: 'profile',

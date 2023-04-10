@@ -9,12 +9,12 @@
               </h4>
             </mdb-view>
             <mdb-card-body class="text-center">
-                    <form>
+                    <form @submit.stop.prevent="login">
                         <!-- Email input -->
                         <mdb-input
                         type="email"
                         label="E-mail"
-                        id="form1Email"
+                        id="email"
                         v-model="email"
                         wrapperClass="mb-4"
                         />
@@ -22,28 +22,19 @@
                         <mdb-input
                         type="password"
                         label="Senha"
-                        id="form1Password"
+                        id="password"
                         v-model="password"
                         wrapperClass="mb-4"
                         />
                         <!-- 2 column grid layout for inline styling -->
                         <mdb-row class="mb-4">
-                        <mdb-col class="d-flex justify-content-center">
-                            <!-- Checkbox -->
-                            <MDBCheckbox
-                            label="Remember me"
-                            id="form1LoginCheck"
-                            v-model="form1LoginCheck"
-                            wrapperClass="mb-3 mb-md-0"
-                            />
-                        </mdb-col>
                         <mdb-col>
                             <!-- Simple link -->
                             <a href="#!">Esqueceu a senha?</a>
                         </mdb-col>
                         </mdb-row>
                         <!-- Submit button -->
-                        <mdb-btn color="primary" block> Entrar </mdb-btn>
+                        <mdb-btn color="primary" type="submit"> Entrar </mdb-btn>
                     </form>
             </mdb-card-body>
           </mdb-card>
@@ -53,7 +44,9 @@
   </template>
   
   <script>
-  import { mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody, mdbInput, mdbBtn } from 'mdbvue'
+import { mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody, mdbInput, mdbBtn } from 'mdbvue'    
+// import axios from "axios";
+import Cookie from 'js-cookie'
   
   export default {
     name: 'Maps',
@@ -68,8 +61,38 @@
     },
     data () {
       return {
+        email: '',
+        password: ''
       }
-    }
+    },
+
+    // created () {
+    //   Cookie.remove('_myapp_token');
+    // },
+
+    methods: {
+        login() {
+          const payload = {
+            email: this.email,
+            password: this.password
+          };
+
+          fetch('http://127.0.0.1:8000/api/auth/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Access': 'application/json',
+            },
+            body: JSON.stringify(payload)
+          }).then(response => response.json())
+          .then(res => {
+            if(res.access_token) {
+              Cookie.set('_myapp_token', res.access_token);
+              this.$router.push({ name: 'dashboard' });
+            }
+          })
+        },
+    },
   }
   </script>
   

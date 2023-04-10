@@ -18,7 +18,7 @@
           ><img alt="" class="img-fluid" src="../assets/logo_sstcard.png"
         /></a>
         <mdb-list-group class="list-group-flush">
-          <router-link to="/dashboard" @click.native="activeItem = 1">
+          <router-link to="/" @click.native="activeItem = 1">
             <mdb-list-group-item
               :action="true"
               :class="activeItem === 1 && 'active'"
@@ -28,7 +28,7 @@
               />Dashboard</mdb-list-group-item
             >
           </router-link>
-          <router-link to="/usuarios" @click.native="activeItem = 2">
+          <router-link to="/clientes" @click.native="activeItem = 2">
             <mdb-list-group-item
               :action="true"
               :class="activeItem === 2 && 'active'"

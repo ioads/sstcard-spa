@@ -32,7 +32,7 @@
             <mdb-list-group-item
               :action="true"
               :class="activeItem === 2 && 'active'"
-              ><mdb-icon icon="users" class="mr-3" />Usuários</mdb-list-group-item
+              ><mdb-icon icon="users" class="mr-3" />Clientes</mdb-list-group-item
             >
           </router-link>
           <router-link to="/planos" @click.native="activeItem = 3">

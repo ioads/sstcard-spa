@@ -27,6 +27,12 @@ export default new Router({
           props: { page: 2 },
         },
         {
+          path: 'clientes/ver/:id',
+          name: 'teste',
+          component: () => import('@/components/clientes/Show.vue'),
+          props: { page: 2 },
+        },
+        {
           path: 'profile',
           name: 'profile',
           component: () => import('@/components/Profile.vue'),

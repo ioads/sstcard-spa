@@ -22,8 +22,12 @@
                       <th scope="row">{{ i+1 }}</th>
                       <td>{{ cliente.nome }}</td>
                       <td>{{ cliente.celular }}</td>
-                      <td>{{ cliente.status }}</td>
-                      <td>Ver</td>
+                      <td>{{ cliente.status == 0 ? 'Inativo' : 'Ativo' }}</td>
+                      <td>
+                        <a :href="'/clientes/ver/'+ cliente.id" title="Visualizar"><mdb-icon icon="eye" class="mr-3" /></a>
+                        <a @click="updateStatus(cliente.id);" title="Inativar" v-if="cliente.status == 1"><mdb-icon icon="ban" class="mr-3" /></a>
+                        <a @click="updateStatus(cliente.id);" title="Ativar" v-else><mdb-icon icon="check-circle" class="mr-3" /></a>
+                      </td>
                     </tr>
                 </tbody>
               </table>
@@ -35,7 +39,7 @@
   </template>
   
   <script>
-  import { mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody } from 'mdbvue'
+  import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody } from 'mdbvue'
   
   export default {
     name: 'Tables',
@@ -44,7 +48,8 @@
       mdbCol,
       mdbCard,
       mdbView,
-      mdbCardBody
+      mdbCardBody,
+      mdbIcon,
     },
     data () {
       return {
@@ -65,6 +70,18 @@
             this.clientes = res
           })
         },
+        updateStatus(id) {
+          fetch('http://127.0.0.1:8000/api/clientes/status/'+id, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              'Access': 'application/json',
+            },
+          }).then(response => {
+            console.log(response)
+            this.$forceUpdate()
+          })
+        }
     },
     mounted() {
       this.list()

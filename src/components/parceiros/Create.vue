@@ -59,10 +59,20 @@
                     />
                     <mdb-input
                     type="text"
-                    label="CEP"
+                    label="Digite o CEP para pesquisar o endereço"
                     id="cep"
                     v-model="cep"
+                    :keyup="searchCep()"
                     wrapperClass="mb-4"
+                    maxlength="8"
+                    />
+                    <mdb-input
+                    type="text"
+                    label="Logradouro"
+                    id="logradouro"
+                    v-model="logradouro"
+                    wrapperClass="mb-4"
+                    :disabled=disabled
                     />
                     <mdb-input
                     type="text"
@@ -70,6 +80,7 @@
                     id="numero"
                     v-model="numero"
                     wrapperClass="mb-4"
+                    :disabled=disabled
                     />
                     <mdb-input
                     type="text"
@@ -77,6 +88,15 @@
                     id="complemento"
                     v-model="complemento"
                     wrapperClass="mb-4"
+                    :disabled=disabled
+                    />
+                    <mdb-input
+                    type="text"
+                    label="Bairro"
+                    id="bairro"
+                    v-model="bairro"
+                    wrapperClass="mb-4"
+                    :disabled=disabled
                     />
                     <mdb-input
                     type="text"
@@ -84,18 +104,24 @@
                     id="referencia"
                     v-model="referencia"
                     wrapperClass="mb-4"
+                    :disabled=disabled
                     />
-                    <select class="browser-default custom-select">
-                        <option selected>Selecione o estado</option>
-                        <option value="1">BA</option>
-                    </select>
-                    <select class="browser-default custom-select">
-                        <option selected>Selecione a cidade</option>
-                        <option value="Camaçari">Camaçari</option>
-                        <option value="Lauro de Freitas">Lauro de Freitas</option>
-                        <option value="Salvador">Salvador</option>
-                        <option value="Simões Filho">Simões Filho</option>
-                    </select>
+                    <mdb-input
+                    type="text"
+                    label="Cidade"
+                    id="cidade"
+                    v-model="cidade"
+                    wrapperClass="mb-4"
+                    :disabled=disabled
+                    />
+                    <mdb-input
+                    type="text"
+                    label="uf"
+                    id="uf"
+                    v-model="uf"
+                    wrapperClass="mb-4"
+                    :disabled=disabled
+                    />
                     <mdb-btn color="primary" type="submit"> Salvar </mdb-btn>
                 </form>          
             </mdb-card-body>
@@ -106,11 +132,13 @@
   </template>
   
   <script>
-  import { mdbCard, mdbView, mdbCardBody, mdbInput, mdbBtn } from 'mdbvue'
+  import { mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody, mdbInput, mdbBtn } from 'mdbvue'
   
   export default {
     name: 'Tables',
     components: {
+      mdbRow,
+      mdbCol,
       mdbCard,
       mdbView,
       mdbCardBody,
@@ -130,9 +158,11 @@
         logradouro: '',
         numero: '',
         complemento: '',
+        bairro: '',
         referencia: '',
         uf: '',
         cidade: '',
+        disabled: true
       }
     },
     methods: {
@@ -149,6 +179,7 @@
             logradouro: this.logradouro,
             numero: this.numero,
             complemento: this.complemento,
+            bairro: this.bairro,
             referencia: this.referencia,
             uf: this.uf,
             cidade: this.cidade,
@@ -165,6 +196,27 @@
             this.clientes = res
           })
         },
+        searchCep() {
+            if(this.cep.length == 8) {
+                fetch('http://127.0.0.1:8000/api/address/'+this.cep, {
+                    method: 'GET',
+                    headers: {
+                    'Content-Type': 'application/json',
+                    'Access': 'application/json',
+                    },
+                }).then(response => response.json())
+                .then(res => {
+                    this.logradouro = res.logradouro
+                    this.complemento = res.complemento
+                    this.bairro = res.bairro
+                    this.cidade = res.localidade
+                    this.uf = res.uf
+                    this.disabled = false
+                })
+            } else {
+                this.disabled = true
+            }
+        }
     },
     mounted() {
     }

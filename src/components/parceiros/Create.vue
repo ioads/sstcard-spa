@@ -62,7 +62,6 @@
                     label="Digite o CEP para pesquisar o endereço"
                     id="cep"
                     v-model="cep"
-                    :keyup="searchCep()"
                     wrapperClass="mb-4"
                     maxlength="8"
                     />
@@ -72,7 +71,6 @@
                     id="logradouro"
                     v-model="logradouro"
                     wrapperClass="mb-4"
-                    :disabled=disabled
                     />
                     <mdb-input
                     type="text"
@@ -80,7 +78,6 @@
                     id="numero"
                     v-model="numero"
                     wrapperClass="mb-4"
-                    :disabled=disabled
                     />
                     <mdb-input
                     type="text"
@@ -88,7 +85,6 @@
                     id="complemento"
                     v-model="complemento"
                     wrapperClass="mb-4"
-                    :disabled=disabled
                     />
                     <mdb-input
                     type="text"
@@ -96,7 +92,6 @@
                     id="bairro"
                     v-model="bairro"
                     wrapperClass="mb-4"
-                    :disabled=disabled
                     />
                     <mdb-input
                     type="text"
@@ -104,7 +99,6 @@
                     id="referencia"
                     v-model="referencia"
                     wrapperClass="mb-4"
-                    :disabled=disabled
                     />
                     <mdb-input
                     type="text"
@@ -112,15 +106,13 @@
                     id="cidade"
                     v-model="cidade"
                     wrapperClass="mb-4"
-                    :disabled=disabled
                     />
                     <mdb-input
                     type="text"
-                    label="uf"
+                    label="UF"
                     id="uf"
                     v-model="uf"
                     wrapperClass="mb-4"
-                    :disabled=disabled
                     />
                     <mdb-btn color="primary" type="submit"> Salvar </mdb-btn>
                 </form>          
@@ -184,7 +176,7 @@
             uf: this.uf,
             cidade: this.cidade,
           }
-          fetch('http://127.0.0.1:8000/api/parceiros', {
+          fetch('http://127.0.0.1:8000/api/parceiros/', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

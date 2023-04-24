@@ -35,6 +35,20 @@ export default new Router({
           props: { page: 2 },
         },
         {
+          path: 'parceiros',
+          name: 'parceiros',
+          beforeEnter: Guard.auth,
+          component: () => import('@/components/parceiros/Index.vue'),
+          props: { page: 2 },
+        },
+        {
+          path: 'parceiros/ver/:id',
+          name: 'parceirosVer',
+          beforeEnter: Guard.auth,
+          component: () => import('@/components/parceiros/Show.vue'),
+          props: { page: 2 },
+        },
+        {
           path: 'parceiros/cadastrar',
           name: 'parceirosCadastrar',
           beforeEnter: Guard.auth,

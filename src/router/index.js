@@ -49,6 +49,13 @@ export default new Router({
           props: { page: 2 },
         },
         {
+          path: 'parceiros/editar/:id',
+          name: 'parceirosEditar',
+          beforeEnter: Guard.auth,
+          component: () => import('@/components/parceiros/Edit.vue'),
+          props: { page: 2 },
+        },
+        {
           path: 'parceiros/cadastrar',
           name: 'parceirosCadastrar',
           beforeEnter: Guard.auth,

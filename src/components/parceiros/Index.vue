@@ -27,6 +27,7 @@
                       <td>{{ parceiro.status == 0 ? 'Inativo' : 'Ativo' }}</td>
                       <td>
                         <a :href="'/parceiros/ver/'+ parceiro.id" title="Visualizar"><mdb-icon icon="eye" class="mr-3" /></a>
+                        <a :href="'/parceiros/editar/'+ parceiro.id" title="Editar"><mdb-icon icon="edit" class="mr-3" /></a>
                         <a @click="updateStatus(parceiro.id);" title="Inativar" v-if="parceiro.status == 1"><mdb-icon icon="ban" class="mr-3" /></a>
                         <a @click="updateStatus(parceiro.id);" title="Ativar" v-else><mdb-icon icon="check-circle" class="mr-3" /></a>
                       </td>

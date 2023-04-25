@@ -7,6 +7,7 @@
               <h4 class="h4-responsive text-white">Parceiros</h4>
             </mdb-view>
             <mdb-card-body>
+                <mdb-btn class="btn-sm float-right" color="primary" @click="cadastrar()" type="button"><mdb-icon icon="plus" class="mr-3" /> Cadastrar </mdb-btn>
               <table class="table table-striped">
                 <thead>
                     <tr>
@@ -42,7 +43,7 @@
   </template>
   
   <script>
-  import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody } from 'mdbvue'
+  import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody, mdbBtn } from 'mdbvue'
   
   export default {
     name: 'Tables',
@@ -53,6 +54,7 @@
       mdbView,
       mdbCardBody,
       mdbIcon,
+      mdbBtn
     },
     data () {
       return {
@@ -83,6 +85,9 @@
             console.log(response)
             this.$forceUpdate()
           })
+        },
+        cadastrar() {
+            this.$router.push({ name: 'parceirosCadastrar' })
         }
     },
     mounted() {

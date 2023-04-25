@@ -70,6 +70,27 @@ export default new Router({
           props: { page: 8 },
         },
         {
+          path: 'vendas',
+          name: 'vendas',
+          beforeEnter: Guard.auth,
+          component: () => import('@/components/vendas/Index.vue'),
+          props: { page: 8 },
+        },
+        {
+          path: 'vendas/cadastrar',
+          name: 'vendasCadastrar',
+          beforeEnter: Guard.auth,
+          component: () => import('@/components/vendas/Create.vue'),
+          props: { page: 2 },
+        },
+        {
+          path: 'vendas/editar/:id',
+          name: 'vendasEditar',
+          beforeEnter: Guard.auth,
+          component: () => import('@/components/vendas/Edit.vue'),
+          props: { page: 2 },
+        },
+        {
           path: 'profile',
           name: 'profile',
           beforeEnter: Guard.auth,
@@ -96,18 +117,18 @@ export default new Router({
           component: () => import('@/components/BadGateway.vue'),
           props: { page: 5 },
         },
-        // {
-        //   path: '*',
-        //   name: 'BadGateway',
-        //   redirect: '/404',
-        //   props: { page: 5 },
-        // },
       ],
     },
     {
       path: '/login',
       name: 'login',
       component: () => import('@/components/Login.vue'),
+      props: { page: 6 }
+    },
+    {
+      path: '/planos/:id/adesao',
+      name: 'planoAdesao',
+      component: () => import('@/components/planos/Adesao.vue'),
       props: { page: 6 }
     },
   ]

@@ -63,6 +63,13 @@ export default new Router({
           props: { page: 2 },
         },
         {
+          path: 'prontuarios',
+          name: 'prontuarios',
+          beforeEnter: Guard.auth,
+          component: () => import('@/components/prontuarios/Index.vue'),
+          props: { page: 8 },
+        },
+        {
           path: 'profile',
           name: 'profile',
           beforeEnter: Guard.auth,

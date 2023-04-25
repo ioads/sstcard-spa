@@ -70,7 +70,7 @@
               ><mdb-icon icon="cash-register" class="mr-3" />Vendas</mdb-list-group-item
             >
           </router-link>
-          <router-link to="/prontuario" @click.native="activeItem = 8">
+          <router-link to="/prontuarios" @click.native="activeItem = 8">
             <mdb-list-group-item
               :action="true"
               :class="activeItem === 8 && 'active'"

@@ -91,6 +91,20 @@ export default new Router({
           props: { page: 2 },
         },
         {
+          path: 'planos',
+          name: 'planos',
+          beforeEnter: Guard.auth,
+          component: () => import('@/components/planos/Index.vue'),
+          props: { page: 2 },
+        },
+        {
+          path: 'planos/ver/:id',
+          name: 'planosVer',
+          beforeEnter: Guard.auth,
+          component: () => import('@/components/planos/Show.vue'),
+          props: { page: 2 },
+        },
+        {
           path: 'profile',
           name: 'profile',
           beforeEnter: Guard.auth,

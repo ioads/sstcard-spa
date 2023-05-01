@@ -40,6 +40,7 @@
   
   <script>
   import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody } from 'mdbvue'
+  import { get } from '../../services/http'
   
   export default {
     name: 'Tables',
@@ -58,17 +59,10 @@
     },
     methods: {
         list() {
-          fetch('http://127.0.0.1:8000/api/planos', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access': 'application/json',
-            },
-          }).then(response => response.json())
-          .then(res => {
-            this.planos = res.data
-            console.log(this.planos)
-          })
+          get('planos').then((response) => {
+            console.log(response)
+            this.planos = response
+          });
         },
     },
     mounted() {

@@ -44,6 +44,7 @@
   
   <script>
   import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody, mdbBtn } from 'mdbvue'
+  import { axiosGet } from '../../services/http'
   
   export default {
     name: 'Tables',
@@ -63,17 +64,9 @@
     },
     methods: {
         list() {
-          fetch('http://127.0.0.1:8000/api/vendas', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access': 'application/json',
-            },
-            // body: JSON.stringify(payload)
-          }).then(response => response.json())
-          .then(res => {
-            this.vendas = res
-          })
+          axiosGet('vendas').then((response) => {
+            this.vendas = response
+          });
         },
         cadastrar() {
             this.$router.push({ name: 'vendasCadastrar' })

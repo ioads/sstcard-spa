@@ -32,6 +32,7 @@
   
   <script>
   import { mdbCard, mdbView, mdbCardBody, mdbRow, mdbCol } from 'mdbvue'
+  import { axiosGet } from '../../services/http'
   
   export default {
     name: 'Tables',
@@ -49,21 +50,13 @@
     },
     methods: {
         show() {
-          fetch('http://127.0.0.1:8000/api/parceiros/'+this.$route.params.id, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access': 'application/json',
-            },
-          }).then(response => response.json())
-          .then(res => {
-            this.parceiro = res
-          })
+          axiosGet('parceiros/'+this.$route.params.id).then((response) => {  
+            this.parceiro = response
+          });
         },
     },
     mounted() {
         this.show()
-        console.log(this.$route.params.id)
     }
   }
   </script>

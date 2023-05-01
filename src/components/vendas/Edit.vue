@@ -47,6 +47,7 @@
   
   <script>
   import { mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody, mdbInput, mdbBtn } from 'mdbvue'
+  import { axiosPut } from '../../services/http'
   
   export default {
     name: 'Tables',
@@ -91,17 +92,9 @@
             valor_liquido: this.valor_liquido,
             data: this.data
           }
-          fetch('http://127.0.0.1:8000/api/vendas/'+this.$route.params.id, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access': 'application/json',
-            },
-            body: JSON.stringify(payload)
-          }).then(response => response.json())
-          .then(res => {
-            console.log(res)
-          })
+          axiosPut('vendas', this.$route.params.id, payload).then((response) => {
+            console.log(response)
+          });
         },
     },
     mounted() {

@@ -26,6 +26,7 @@
   
   <script>
   import { mdbCard, mdbView, mdbCardBody } from 'mdbvue'
+  import { axiosGet } from '../../services/http'
   
   export default {
     name: 'Tables',
@@ -41,16 +42,10 @@
     },
     methods: {
         show() {
-          fetch('http://127.0.0.1:8000/api/planos/'+this.$route.params.id, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access': 'application/json',
-            },
-          }).then(response => response.json())
-          .then(res => {
-            this.plano = res.data
-          })
+          axiosGet('planos/'+this.$route.params.id).then((response) => {  
+            console.log(response)
+            this.plano = response.data
+          });
         },
     },
     mounted() {

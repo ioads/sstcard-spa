@@ -40,6 +40,7 @@
   
   <script>
   import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody } from 'mdbvue'
+  import { axiosGet, axiosPut } from '../../services/http'
   
   export default {
     name: 'Tables',
@@ -58,29 +59,14 @@
     },
     methods: {
         list() {
-          fetch('http://127.0.0.1:8000/api/clientes', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access': 'application/json',
-            },
-            // body: JSON.stringify(payload)
-          }).then(response => response.json())
-          .then(res => {
-            this.clientes = res
-          })
+          axiosGet('clientes').then((response) => {
+            this.clientes = response
+          });
         },
         updateStatus(id) {
-          fetch('http://127.0.0.1:8000/api/clientes/status/'+id, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access': 'application/json',
-            },
-          }).then(response => {
-            console.log(response)
+          axiosPut('clientes/status', id).then(() => {
             this.$forceUpdate()
-          })
+          });
         }
     },
     mounted() {

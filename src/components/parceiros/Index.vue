@@ -44,6 +44,7 @@
   
   <script>
   import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody, mdbBtn } from 'mdbvue'
+  import { axiosGet, axiosPut } from '../../services/http'
   
   export default {
     name: 'Tables',
@@ -63,28 +64,14 @@
     },
     methods: {
         list() {
-          fetch('http://127.0.0.1:8000/api/parceiros', {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access': 'application/json',
-            },
-          }).then(response => response.json())
-          .then(res => {
-            this.parceiros = res
-          })
+          axiosGet('parceiros').then((response) => {
+            this.parceiros = response
+          });
         },
         updateStatus(id) {
-          fetch('http://127.0.0.1:8000/api/parceiros/status/'+id, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access': 'application/json',
-            },
-          }).then(response => {
-            console.log(response)
+          axiosPut('parceiros/status', id).then(() => {
             this.$forceUpdate()
-          })
+          });
         },
         cadastrar() {
             this.$router.push({ name: 'parceirosCadastrar' })

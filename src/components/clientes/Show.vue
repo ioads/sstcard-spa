@@ -31,6 +31,7 @@
   
   <script>
   import { mdbCard, mdbView, mdbCardBody } from 'mdbvue'
+  import { axiosGet } from '../../services/http'
   
   export default {
     name: 'Tables',
@@ -46,16 +47,9 @@
     },
     methods: {
         show() {
-          fetch('http://127.0.0.1:8000/api/clientes/'+this.$route.params.id, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access': 'application/json',
-            },
-          }).then(response => response.json())
-          .then(res => {
-            this.cliente = res
-          })
+          axiosGet('clientes/'+this.$route.params.id).then((response) => {  
+            this.cliente = response
+          });
         },
     },
     mounted() {

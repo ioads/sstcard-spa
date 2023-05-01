@@ -7,7 +7,7 @@
               <h4 class="h4-responsive text-white">Consultar número de prontuário</h4>
             </mdb-view>
             <mdb-card-body style="font-size: large;">
-                <form @submit.stop.prevent="save">
+                <form @submit.stop.prevent="search">
                     <mdb-input
                     type="text"
                     label="Digite o número do prontuário"
@@ -26,6 +26,7 @@
   
   <script>
   import { mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody, mdbInput, mdbBtn, mdbIcon } from 'mdbvue'
+  import { axiosGet } from '../../services/http'
   
   export default {
     name: 'Tables',
@@ -45,19 +46,10 @@
       }
     },
     methods: {
-        save() {
-          fetch('http://127.0.0.1:8000/api/clientes/prontuario/'+this.numero_prontuario, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access': 'application/json',
-            },
-          }).then(response => response.json())
-          .then(res => {
-            // if(res.success == 'true') {
-                alert(res.data)
-            // }
-          })
+      search() {
+          axiosGet('clientes/prontuario/'+this.numero_prontuario).then((response) => {
+              alert(response.data)
+          });
         },
     },
     mounted() {

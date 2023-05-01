@@ -49,13 +49,13 @@
               ><mdb-icon icon="handshake" class="mr-3" />Parceiros</mdb-list-group-item
             >
           </router-link>
-          <router-link to="/pagamentos" @click.native="activeItem = 5">
+          <!-- <router-link to="/pagamentos" @click.native="activeItem = 5">
             <mdb-list-group-item
               :action="true"
               :class="activeItem === 5 && 'active'"
               ><mdb-icon icon="credit-card" class="mr-3" />Pagamentos</mdb-list-group-item
             >
-          </router-link>
+          </router-link> -->
           <router-link to="/relatorios" @click.native="activeItem = 6">
             <mdb-list-group-item
               :action="true"

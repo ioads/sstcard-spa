@@ -125,6 +125,7 @@
   
   <script>
   import { mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody, mdbInput, mdbBtn } from 'mdbvue'
+  import { axiosPost, axiosGet } from '../../services/http'
   
   export default {
     name: 'Tables',
@@ -176,35 +177,20 @@
             uf: this.uf,
             cidade: this.cidade,
           }
-          fetch('http://127.0.0.1:8000/api/parceiros/', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access': 'application/json',
-            },
-            body: JSON.stringify(payload)
-          }).then(response => response.json())
-          .then(res => {
-            this.clientes = res
-          })
+          axiosPost('parceiros', payload).then((response) => {
+            console.log(response)
+          });
         },
         searchCep() {
             if(this.cep.length == 8) {
-                fetch('http://127.0.0.1:8000/api/address/'+this.cep, {
-                    method: 'GET',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    'Access': 'application/json',
-                    },
-                }).then(response => response.json())
-                .then(res => {
-                    this.logradouro = res.logradouro
-                    this.complemento = res.complemento
-                    this.bairro = res.bairro
-                    this.cidade = res.localidade
-                    this.uf = res.uf
-                    this.disabled = false
-                })
+                axiosGet('address/'+this.cep).then((response) => {  
+                  this.logradouro = response.logradouro
+                  this.complemento = response.complemento
+                  this.bairro = response.bairro
+                  this.cidade = response.localidade
+                  this.uf = response.uf
+                  this.disabled = false
+                });
             } else {
                 this.disabled = true
             }

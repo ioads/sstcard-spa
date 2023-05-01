@@ -40,7 +40,7 @@
   
   <script>
   import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody } from 'mdbvue'
-  import { get } from '../../services/http'
+  import { axiosGet } from '../../services/http'
   
   export default {
     name: 'Tables',
@@ -59,8 +59,7 @@
     },
     methods: {
         list() {
-          get('planos').then((response) => {
-            console.log(response)
+          axiosGet('planos').then((response) => {
             this.planos = response
           });
         },

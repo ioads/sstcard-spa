@@ -125,6 +125,7 @@
   
   <script>
   import { mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody, mdbInput, mdbBtn } from 'mdbvue'
+  import { axiosGet, axiosPut } from '../../services/http'
   
   export default {
     name: 'Tables',
@@ -159,30 +160,24 @@
     },
     methods: {
         getParceiro() {
-          fetch('http://127.0.0.1:8000/api/parceiros/'+this.$route.params.id, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access': 'application/json',
-            },
-          }).then(response => response.json())
-          .then(res => {
-            this.cnpj = res.cnpj
-            this.nome_fantasia = res.nome_fantasia
-            this.razao_social = res.razao_social
-            this.celular = res.celular
-            this.telefone = res.telefone
-            this.fax = res.fax
-            this.email = res.email
-            this.cep = res.cep
-            this.logradouro = res.logradouro
-            this.numero = res.numero
-            this.complemento = res.complemento
-            this.bairro = res.bairro
-            this.referencia = res.referencia
-            this.uf = res.uf
-            this.cidade = res.cidade
-          })
+          axiosGet('parceiros/'+this.$route.params.id).then((response) => {  
+            console.log(response)
+            this.cnpj = response.cnpj
+            this.nome_fantasia = response.nome_fantasia
+            this.razao_social = response.razao_social
+            this.celular = response.celular
+            this.telefone = response.telefone
+            this.fax = response.fax
+            this.email = response.email
+            this.cep = response.cep
+            this.logradouro = response.logradouro
+            this.numero = response.numero
+            this.complemento = response.complemento
+            this.bairro = response.bairro
+            this.referencia = response.referencia
+            this.uf = response.uf
+            this.cidade = response.cidade
+          });
         },
         update() {
           let payload = {
@@ -202,17 +197,9 @@
             uf: this.uf,
             cidade: this.cidade,
           }
-          fetch('http://127.0.0.1:8000/api/parceiros/'+this.$route.params.id, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access': 'application/json',
-            },
-            body: JSON.stringify(payload)
-          }).then(response => response.json())
-          .then(res => {
-            console.log(res)
-          })
+          axiosPut('parceiros', this.$route.params.id, payload).then((response) => {
+            console.log(response)
+          });
         },
         searchCep() {
             if(this.cep.length == 8) {

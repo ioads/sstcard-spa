@@ -6,7 +6,7 @@
           <mdb-navbar-nav right>
             <mdb-nav-item href="#!" waves-fixed
               ><mdb-icon fab icon="user"/>Olá, Iago</mdb-nav-item>
-            <mdb-nav-item href="#!" waves-fixed
+            <mdb-nav-item href="#!" waves-fixed @click.native="logout"
               >Sair</mdb-nav-item>
           </mdb-navbar-nav>
         </mdb-navbar-toggler>
@@ -18,7 +18,7 @@
           ><img alt="" class="img-fluid" src="../assets/logo_sstcard.png"
         /></a>
         <mdb-list-group class="list-group-flush">
-          <router-link to="/" @click.native="activeItem = 1">
+          <router-link to="/" @click.native="activeItem = 1" v-if="role == 1">
             <mdb-list-group-item
               :action="true"
               :class="activeItem === 1 && 'active'"
@@ -28,21 +28,21 @@
               />Dashboard</mdb-list-group-item
             >
           </router-link>
-          <router-link to="/clientes" @click.native="activeItem = 2">
+          <router-link to="/clientes" @click.native="activeItem = 2" v-if="role == 1">
             <mdb-list-group-item
               :action="true"
               :class="activeItem === 2 && 'active'"
               ><mdb-icon icon="users" class="mr-3" />Clientes</mdb-list-group-item
             >
           </router-link>
-          <router-link to="/planos" @click.native="activeItem = 3">
+          <router-link to="/planos" @click.native="activeItem = 3" v-if="role == 1">
             <mdb-list-group-item
               :action="true"
               :class="activeItem === 3 && 'active'"
               ><mdb-icon icon="table" class="mr-3" />Planos</mdb-list-group-item
             >
           </router-link>
-          <router-link to="/parceiros" @click.native="activeItem = 4">
+          <router-link to="/parceiros" @click.native="activeItem = 4" v-if="role == 1">
             <mdb-list-group-item
               :action="true"
               :class="activeItem === 4 && 'active'"
@@ -56,21 +56,21 @@
               ><mdb-icon icon="credit-card" class="mr-3" />Pagamentos</mdb-list-group-item
             >
           </router-link> -->
-          <router-link to="/relatorios" @click.native="activeItem = 6">
+          <router-link to="/relatorios" @click.native="activeItem = 6" v-if="role == 1">
             <mdb-list-group-item
               :action="true"
               :class="activeItem === 6 && 'active'"
               ><mdb-icon icon="file-pdf" class="mr-3" />Relatórios</mdb-list-group-item
             >
           </router-link>
-          <router-link to="/vendas" @click.native="activeItem = 7">
+          <router-link to="/vendas" @click.native="activeItem = 7" v-if="role == 2">
             <mdb-list-group-item
               :action="true"
               :class="activeItem === 7 && 'active'"
               ><mdb-icon icon="cash-register" class="mr-3" />Vendas</mdb-list-group-item
             >
           </router-link>
-          <router-link to="/prontuarios" @click.native="activeItem = 8">
+          <router-link to="/prontuarios" @click.native="activeItem = 8"  v-if="role == 2">
             <mdb-list-group-item
               :action="true"
               :class="activeItem === 8 && 'active'"
@@ -113,6 +113,8 @@
     mdbFooter,
     waves
   } from "mdbvue";
+  import Cookie from 'js-cookie'
+
   export default {
     name: "AdminTemplate",
     components: {
@@ -128,11 +130,22 @@
     data() {
       return {
         teste: '/dashboard',
-        activeItem: 1
+        activeItem: 1,
+        role: ''
       };
+    },
+    methods: {
+      logout() {
+        Cookie.remove('_myapp_token');
+        Cookie.remove('_myapp_role');
+        this.$router.push({ name: 'login' })
+      }
     },
     beforeMount() {
       this.activeItem = this.$route.matched[0].props.default.page;
+    },
+    mounted() {
+      this.role = Cookie.get('_myapp_role');
     },
     mixins: [waves]
   };

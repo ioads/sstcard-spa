@@ -86,9 +86,15 @@ import Cookie from 'js-cookie'
             body: JSON.stringify(payload)
           }).then(response => response.json())
           .then(res => {
+            console.log(res)
             if(res.access_token) {
               Cookie.set('_myapp_token', res.access_token);
-              this.$router.push({ name: 'dashboard' });
+              Cookie.set('_myapp_role', res.role);
+              if(res.role == 1) {
+                this.$router.push({ name: 'dashboard' });
+              } else {
+                this.$router.push({ name: 'prontuarios' });
+              }
             }
           })
         },

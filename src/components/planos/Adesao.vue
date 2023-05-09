@@ -1,16 +1,37 @@
 <template>
     <section id="maps">
       <mdb-row class="justify-content-center">
-        <mdb-col md="5">
+        <mdb-col md="10">
           <mdb-card cascade narrow class="mt-5">
             <mdb-view class="gradient-card-header blue darken-2">
               <h4 class="h4-responsive text-white">
-                Login
+                Adesão de plano
               </h4>
             </mdb-view>
             <mdb-card-body class="text-center">
-                    <form @submit.stop.prevent="login">
+                    <form @submit.stop.prevent="cadastrar">
                         <!-- Email input -->
+                        <mdb-input
+                        type="text"
+                        label="Nome Completo"
+                        id="nome"
+                        v-model="nome"
+                        wrapperClass="mb-4"
+                        />
+                        <mdb-input
+                        type="text"
+                        label="CPF"
+                        id="cpf"
+                        v-model="cpf"
+                        wrapperClass="mb-4"
+                        />
+                        <mdb-input
+                        type="text"
+                        label="RG"
+                        id="rg"
+                        v-model="rg"
+                        wrapperClass="mb-4"
+                        />
                         <mdb-input
                         type="email"
                         label="E-mail"
@@ -18,23 +39,120 @@
                         v-model="email"
                         wrapperClass="mb-4"
                         />
-                        <!-- Password input -->
                         <mdb-input
-                        type="password"
-                        label="Senha"
-                        id="password"
-                        v-model="password"
+                        type="text"
+                        label="CEP"
+                        id="cep"
+                        v-model="cep"
                         wrapperClass="mb-4"
                         />
-                        <!-- 2 column grid layout for inline styling -->
-                        <mdb-row class="mb-4">
-                        <mdb-col>
-                            <!-- Simple link -->
-                            <a href="#!">Esqueceu a senha?</a>
-                        </mdb-col>
-                        </mdb-row>
+                        <mdb-input
+                        type="text"
+                        label="Logradouro"
+                        id="logradouro"
+                        v-model="logradouro"
+                        wrapperClass="mb-4"
+                        />
+                        <mdb-input
+                        type="text"
+                        label="Número"
+                        id="numero"
+                        v-model="numero"
+                        wrapperClass="mb-4"
+                        />
+                        <mdb-input
+                        type="text"
+                        label="Complemento"
+                        id="complemento"
+                        v-model="complemento"
+                        wrapperClass="mb-4"
+                        />
+                        <mdb-input
+                        type="text"
+                        label="Referência"
+                        id="referencia"
+                        v-model="referencia"
+                        wrapperClass="mb-4"
+                        />
+                        <mdb-input
+                        type="text"
+                        label="Bairro"
+                        id="bairro"
+                        v-model="bairro"
+                        wrapperClass="mb-4"
+                        />
+                        <mdb-input
+                        type="text"
+                        label="Cidade"
+                        id="cidade"
+                        v-model="cidade"
+                        wrapperClass="mb-4"
+                        />
+                        <mdb-input
+                        type="text"
+                        label="UF"
+                        id="uf"
+                        v-model="uf"
+                        wrapperClass="mb-4"
+                        />
+                        <mdb-input
+                        type="text"
+                        label="DDD"
+                        id="ddd"
+                        v-model="ddd"
+                        wrapperClass="mb-4"
+                        />
+                        <mdb-input
+                        type="text"
+                        label="Celular"
+                        id="celular"
+                        v-model="celular"
+                        wrapperClass="mb-4"
+                        />
+                        <mdb-input
+                        type="text"
+                        label="Sexo"
+                        id="sexo"
+                        v-model="sexo"
+                        wrapperClass="mb-4"
+                        />
+                        <mdb-input
+                        type="date"
+                        label="Data de nascimento"
+                        id="data_nascimento"
+                        v-model="data_nascimento"
+                        wrapperClass="mb-4"
+                        />
+                        <mdb-input
+                        type="text"
+                        label="Número do Cartão de Crédito"
+                        id="cartao_numero"
+                        v-model="cartao_numero"
+                        wrapperClass="mb-4"
+                        />
+                        <mdb-input
+                        type="text"
+                        label="CVV"
+                        id="cartao_cvv"
+                        v-model="cartao_cvv"
+                        wrapperClass="mb-4"
+                        />
+                        <mdb-input
+                        type="text"
+                        label="Nome do titular do cartão"
+                        id="cartao_nome"
+                        v-model="cartao_nome"
+                        wrapperClass="mb-4"
+                        />
+                        <mdb-input
+                        type="text"
+                        label="Valido até (MMAA)"
+                        id="cartao_validade"
+                        v-model="cartao_validade"
+                        wrapperClass="mb-4"
+                        />
                         <!-- Submit button -->
-                        <mdb-btn color="primary" type="submit"> Entrar </mdb-btn>
+                        <mdb-btn color="primary" type="submit"> Enviar </mdb-btn>
                     </form>
             </mdb-card-body>
           </mdb-card>
@@ -45,8 +163,7 @@
   
   <script>
 import { mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody, mdbInput, mdbBtn } from 'mdbvue'    
-// import axios from "axios";
-import Cookie from 'js-cookie'
+import { axiosPost } from '../../services/http'
   
   export default {
     name: 'Maps',
@@ -61,36 +178,62 @@ import Cookie from 'js-cookie'
     },
     data () {
       return {
+        nome: '',
+        cpf: '',
+        rg: '',
         email: '',
-        password: ''
+        cep: '',
+        logradouro: '',
+        numero: '',
+        complemento: '',
+        referencia: '',
+        bairro: '',
+        cidade: '',
+        uf: '',
+        ddd: '',
+        celular: '',
+        sexo: '',
+        data_nascimento: '',
+        cartao_numero: '5200480622211952',
+        cartao_cvv: '814',
+        cartao_nome: 'Iago Silva Oliveira',
+        cartao_validade: '0531'
       }
     },
 
-    // created () {
-    //   Cookie.remove('_myapp_token');
-    // },
-
     methods: {
-        login() {
+        cadastrar() {
           const payload = {
-            email: this.email,
-            password: this.password
-          };
-
-          fetch('http://127.0.0.1:8000/api/auth/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Access': 'application/json',
+            id_plano: this.$route.params.id,
+            cliente: {
+              nome: this.nome,
+              cpf: this.cpf,
+              rg: this.rg,
+              email: this.email,
+              cep: this.cep,
+              logradouro: this.logradouro,
+              numero: this.numero,
+              complemento: this.complemento,
+              referencia: this.referencia,
+              bairro: this.bairro,
+              cidade: this.cidade,
+              uf: this.uf,
+              ddd: this.ddd,
+              celular: this.celular,
+              sexo: this.sexo,
+              data_nascimento: this.data_nascimento,
             },
-            body: JSON.stringify(payload)
-          }).then(response => response.json())
-          .then(res => {
-            if(res.access_token) {
-              Cookie.set('_myapp_token', res.access_token);
-              this.$router.push({ name: 'dashboard' });
-            }
-          })
+            cartao: {      
+              cartao_numero: this.cartao_numero,
+              cartao_cvv: this.cartao_cvv,
+              cartao_nome: this.cartao_nome,
+              cartao_validade: this.cartao_validade
+            }      
+          };
+          console.log(payload)
+          axiosPost('assinaturas', payload).then((response) => {
+            console.log(response)
+          });
         },
     },
   }

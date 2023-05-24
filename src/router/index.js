@@ -35,6 +35,13 @@ export default new Router({
           props: { page: 2 },
         },
         {
+          path: 'assinaturas',
+          name: 'assinaturas',
+          beforeEnter: Guard.gestor,
+          component: () => import('@/components/assinaturas/Index.vue'),
+          props: { page: 2 },
+        },
+        {
           path: 'parceiros',
           name: 'parceiros',
           beforeEnter: Guard.gestor,

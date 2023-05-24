@@ -64,7 +64,6 @@
     methods: {
         list() {
           axiosGet('assinaturas').then((response) => {
-            // console.log(response[0].current_transaction.status)
             this.assinaturas = response
             console.log(this.assinaturas)
           });

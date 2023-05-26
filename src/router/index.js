@@ -42,6 +42,13 @@ export default new Router({
           props: { page: 2 },
         },
         {
+          path: 'assinaturas/ver/:id',
+          name: 'assinaturasVer',
+          beforeEnter: Guard.gestor,
+          component: () => import('@/components/assinaturas/Show.vue'),
+          props: { page: 2 },
+        },
+        {
           path: 'parceiros',
           name: 'parceiros',
           beforeEnter: Guard.gestor,

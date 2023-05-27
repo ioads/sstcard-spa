@@ -39,14 +39,14 @@ export default new Router({
           name: 'assinaturas',
           beforeEnter: Guard.gestor,
           component: () => import('@/components/assinaturas/Index.vue'),
-          props: { page: 2 },
+          props: { page: 15 },
         },
         {
           path: 'assinaturas/ver/:id',
           name: 'assinaturasVer',
           beforeEnter: Guard.gestor,
           component: () => import('@/components/assinaturas/Show.vue'),
-          props: { page: 2 },
+          props: { page: 15 },
         },
         {
           path: 'parceiros',

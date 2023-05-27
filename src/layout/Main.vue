@@ -35,10 +35,10 @@
               ><mdb-icon icon="users" class="mr-3" />Clientes</mdb-list-group-item
             >
           </router-link>
-          <router-link to="/assinaturas" @click.native="activeItem = 9" v-if="role == 1">
+          <router-link to="/assinaturas" @click.native="activeItem = 15" v-if="role == 1">
             <mdb-list-group-item
               :action="true"
-              :class="activeItem === 9 && 'active'"
+              :class="activeItem === 15 && 'active'"
               ><mdb-icon icon="users" class="mr-3" />Assinaturas</mdb-list-group-item
             >
           </router-link>

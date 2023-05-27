@@ -11,6 +11,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>ID Api</th>
                         <th>Nome</th>
                         <th>Valor</th>
                         <th>Dias</th>
@@ -21,6 +22,7 @@
                 <tbody>
                     <tr v-for="(plano,i) in planos" :key="i">
                       <th scope="row">{{ i+1 }}</th>
+                      <td>{{ plano.id }}</td>
                       <td>{{ plano.name }}</td>
                       <td>{{ formatPrice(plano.amount) }}</td>
                       <td>{{ plano.days }}</td>

@@ -309,6 +309,20 @@ import {mask} from 'vue-the-mask'
             console.log(response)
           });
         },
+        searchCep() {
+            if(this.cep.length == 9) {
+                axiosGet('address/'+this.cep).then((response) => {  
+                  this.logradouro = response.logradouro
+                  this.complemento = response.complemento
+                  this.bairro = response.bairro
+                  this.cidade = response.localidade
+                  this.uf = response.uf
+                  this.disabled = false
+                });
+            } else {
+                this.disabled = true
+            }
+        }
     },
     mounted() {
         this.show()

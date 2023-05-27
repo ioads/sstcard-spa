@@ -11,6 +11,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>ID Api</th>
                         <th>CPF</th>
                         <th>Cliente</th>
                         <th>Plano</th>
@@ -22,6 +23,7 @@
                 <tbody>
                     <tr v-for="(assinatura,i) in assinaturas" :key="i">
                       <th scope="row">{{ i+1 }}</th>
+                      <td>{{ assinatura.id }}</td>
                       <td>{{ formatCpf(assinatura.customer.document_number) }}</td>
                       <td>{{ assinatura.customer.name }}</td>
                       <td>{{ assinatura.plan.name }}</td>
@@ -29,8 +31,6 @@
                       <td>{{ assinatura.status == 'paid' ? 'Pago' : assinatura.status }}</td>
                       <td>
                         <a :href="'/assinaturas/ver/'+ assinatura.id" title="Visualizar"><mdb-icon icon="eye" class="mr-3" /></a>
-                        <a @click="updateStatus(assinatura.id);" title="Inativar" v-if="assinatura.status == 1"><mdb-icon icon="ban" class="mr-3" /></a>
-                        <a @click="updateStatus(assinatura.id);" title="Ativar" v-else><mdb-icon icon="check-circle" class="mr-3" /></a>
                       </td>
                     </tr>
                 </tbody>

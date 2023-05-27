@@ -39,7 +39,7 @@
             <mdb-list-group-item
               :action="true"
               :class="activeItem === 15 && 'active'"
-              ><mdb-icon icon="users" class="mr-3" />Assinaturas</mdb-list-group-item
+              ><mdb-icon icon="signature" class="mr-3" />Assinaturas</mdb-list-group-item
             >
           </router-link>
           <router-link to="/planos" @click.native="activeItem = 3" v-if="role == 1">

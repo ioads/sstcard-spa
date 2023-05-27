@@ -8,13 +8,13 @@
             </mdb-view>
             <mdb-card-body style="font-size: large;">
                 <p><span class="title-info">Nome do cliente:</span> {{ assinatura.customer.name }}</p>    
-                <p><span class="title-info">CPF do cliente:</span> {{  assinatura.customer.document_number }}</p>         
+                <p><span class="title-info">CPF do cliente:</span> {{ formatCpf(assinatura.customer.document_number) }}</p>         
                 <p><span class="title-info">E-mail do cliente:</span> {{  assinatura.customer.email }}</p>         
                 <!-- <p><span class="title-info">Telefone do cliente:</span> {{  assinatura.customer.phone_numbers }}</p>          -->
                 <p><span class="title-info">ID do Plano:</span> {{ assinatura.plan.id }}</p>   
                 <p><span class="title-info">Plano:</span> {{ assinatura.plan.name }}</p>   
-                <p><span class="title-info">Data de adesão:</span> {{ assinatura.plan.date_created }}</p>             
-                <p><span class="title-info">Valor:</span> {{ assinatura.plan.amount }}</p>
+                <p><span class="title-info">Data de adesão:</span> {{ formatDate(assinatura.plan.date_created) }}</p>             
+                <p><span class="title-info">Valor:</span> {{ formatPrice(assinatura.plan.amount) }}</p>
                 
                 <p><span class="title-info">Transação atual:</span> {{ assinatura.current_transaction.acquirer_response_message }}</p>
                 <p><span class="title-info">Status transação atual:</span> {{ assinatura.current_transaction.status }}</p>
@@ -30,6 +30,7 @@
   <script>
   import { mdbCard, mdbView, mdbCardBody } from 'mdbvue'
   import { axiosGet } from '../../services/http'
+  import { formatPrice, formatDate, formatCpf } from '../../utils/format'
   
   export default {
     name: 'Tables',
@@ -47,9 +48,17 @@
         show() {
           axiosGet('assinaturas/'+this.$route.params.id).then((response) => {  
             this.assinatura = response.data
-            console.log(this.assinatura)
           });
         },
+        formatPrice(value) {
+            return formatPrice(value);
+        },
+        formatDate(value) {
+            return formatDate(value);
+        },
+        formatCpf(value) {
+            return formatCpf(value);
+        }
     },
     mounted() {
         this.show()

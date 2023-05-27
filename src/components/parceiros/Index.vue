@@ -24,7 +24,7 @@
                       <th scope="row">{{ i+1 }}</th>
                       <td>{{ parceiro.razao_social }}</td>
                       <td>{{ parceiro.cnpj }}</td>
-                      <td>{{ parceiro.celular }}</td>
+                      <td>{{ formatPhone(parceiro.celular) }}</td>
                       <td>{{ parceiro.status == 0 ? 'Inativo' : 'Ativo' }}</td>
                       <td>
                         <a :href="'/parceiros/ver/'+ parceiro.id" title="Visualizar"><mdb-icon icon="eye" class="mr-3" /></a>
@@ -45,6 +45,7 @@
   <script>
   import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody, mdbBtn } from 'mdbvue'
   import { axiosGet, axiosPut } from '../../services/http'
+  import { formatPhone } from '../../utils/format'
   
   export default {
     name: 'Tables',
@@ -75,6 +76,9 @@
         },
         cadastrar() {
             this.$router.push({ name: 'parceirosCadastrar' })
+        },
+        formatPhone(value) {
+            return formatPhone(value);
         }
     },
     mounted() {

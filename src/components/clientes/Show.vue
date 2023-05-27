@@ -8,12 +8,12 @@
             </mdb-view>
             <mdb-card-body style="font-size: large;">
                 <p><span class="title-info">Nome do cliente:</span> {{ cliente.nome }}</p>    
-                <p><span class="title-info">CPF:</span> {{  cliente.cpf }}</p>         
+                <p><span class="title-info">CPF:</span> {{ formatCpf(cliente.cpf) }}</p>         
                 <p><span class="title-info">RG:</span> {{ cliente.rg }}</p>   
-                <p><span class="title-info">Celular:</span> {{ cliente.celular }}</p>         
+                <p><span class="title-info">Celular:</span> {{ formatPhone(cliente.celular) }}</p>         
                 <p><span class="title-info">E-mail:</span> {{ cliente.email }}</p>         
                 <p><span class="title-info">Número do Protocolo:</span> {{ cliente.numero_protocolo }}</p>         
-                <p><span class="title-info">CEP:</span> {{ cliente.cep }}</p>         
+                <p><span class="title-info">CEP:</span> {{ formatCep(cliente.cep) }}</p>         
                 <p><span class="title-info">Logradouro:</span> {{ cliente.logradouro }}</p>         
                 <p><span class="title-info">Número:</span> {{ cliente.numero }}</p>         
                 <p><span class="title-info">Complemento:</span> {{ cliente.complemento }}</p>         
@@ -21,7 +21,7 @@
                 <p><span class="title-info">Cidade:</span> {{ cliente.cidade }}</p>         
                 <p><span class="title-info">UF:</span> {{ cliente.uf }}</p>         
                 <p><span class="title-info">Status:</span> {{ cliente.status }}</p>         
-                <p><span class="title-info">Cadastrado em:</span> {{ cliente.created_at }}</p>              
+                <p><span class="title-info">Cadastrado em:</span> {{ formatDate(cliente.created_at) }}</p>              
             </mdb-card-body>
           </mdb-card>
         </mdb-col>
@@ -32,6 +32,7 @@
   <script>
   import { mdbCard, mdbView, mdbCardBody } from 'mdbvue'
   import { axiosGet } from '../../services/http'
+  import { formatCpf, formatDate, formatCep, formatPhone } from '../../utils/format'
   
   export default {
     name: 'Tables',
@@ -51,6 +52,18 @@
             this.cliente = response
           });
         },
+        formatCep(value) {
+            return formatCep(value);
+        },
+        formatDate(value) {
+            return formatDate(value);
+        },
+        formatCpf(value) {
+            return formatCpf(value);
+        },
+        formatPhone(value) {
+            return formatPhone(value);
+        }
     },
     mounted() {
         this.show()

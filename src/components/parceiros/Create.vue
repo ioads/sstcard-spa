@@ -13,6 +13,7 @@
                     label="CNPJ"
                     id="cnpj"
                     v-model="cnpj"
+                    v-mask="'##.###.###/####-##'"
                     wrapperClass="mb-4"
                     />
                     <mdb-input
@@ -34,6 +35,7 @@
                     label="Celular"
                     id="celular"
                     v-model="celular"
+                    v-mask="'(##) #####-####'"
                     wrapperClass="mb-4"
                     />
                     <mdb-input
@@ -41,6 +43,7 @@
                     label="Telefone"
                     id="telefone"
                     v-model="telefone"
+                    v-mask="'(##) ####-####'"
                     wrapperClass="mb-4"
                     />
                     <mdb-input
@@ -62,8 +65,8 @@
                     label="Digite o CEP para pesquisar o endereço"
                     id="cep"
                     v-model="cep"
+                    v-mask="'#####-###'"
                     wrapperClass="mb-4"
-                    maxlength="8"
                     />
                     <mdb-input
                     type="text"
@@ -126,9 +129,11 @@
   <script>
   import { mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody, mdbInput, mdbBtn } from 'mdbvue'
   import { axiosPost, axiosGet } from '../../services/http'
+  import {mask} from 'vue-the-mask'
   
   export default {
     name: 'Tables',
+    directives: {mask},
     components: {
       mdbRow,
       mdbCol,

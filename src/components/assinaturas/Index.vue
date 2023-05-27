@@ -22,10 +22,10 @@
                 <tbody>
                     <tr v-for="(assinatura,i) in assinaturas" :key="i">
                       <th scope="row">{{ i+1 }}</th>
-                      <td>{{ assinatura.customer.document_number }}</td>
+                      <td>{{ formatCpf(assinatura.customer.document_number) }}</td>
                       <td>{{ assinatura.customer.name }}</td>
                       <td>{{ assinatura.plan.name }}</td>
-                      <td>{{ assinatura.plan.date_created }}</td>
+                      <td>{{ formatDate(assinatura.plan.date_created) }}</td>
                       <td>{{ assinatura.status == 'paid' ? 'Pago' : assinatura.status }}</td>
                       <td>
                         <a :href="'/assinaturas/ver/'+ assinatura.id" title="Visualizar"><mdb-icon icon="eye" class="mr-3" /></a>
@@ -45,6 +45,7 @@
   <script>
   import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody } from 'mdbvue'
   import { axiosGet, axiosPut } from '../../services/http'
+  import { formatDate, formatCpf } from '../../utils/format'
   
   export default {
     name: 'Tables',
@@ -72,6 +73,12 @@
           axiosPut('clientes/status', id).then(() => {
             this.$forceUpdate()
           });
+        },
+        formatDate(value) {
+            return formatDate(value);
+        },
+        formatCpf(value) {
+            return formatCpf(value);
         }
     },
     mounted() {

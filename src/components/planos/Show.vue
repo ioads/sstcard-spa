@@ -8,7 +8,7 @@
             </mdb-view>
             <mdb-card-body style="font-size: large;">
                 <p><span class="title-info">Nome do plano:</span> {{ plano.name }}</p>    
-                <p><span class="title-info">Valor:</span> {{  plano.amount }}</p>         
+                <p><span class="title-info">Valor:</span> {{ formatPrice(plano.amount) }}</p>         
                 <p><span class="title-info">Dias:</span> {{ plano.days }}</p>   
                 <p><span class="title-info">Dias de teste:</span> {{ plano.trial_days }}</p>           
                 <p><span class="title-info">Métodos de pagamento:</span> {{ plano.payment_methods }}</p>         
@@ -16,7 +16,7 @@
                 <p><span class="title-info">Cargas:</span> {{ plano.charges }}</p>         
                 <p><span class="title-info">Parcelas:</span> {{ plano.installments }}</p>         
                 <p><span class="title-info">Lembrete de pagamento:</span> {{ plano.invoice_reminder }}</p>       
-                <p><span class="title-info">Data de criação:</span> {{ plano.date_created }}</p>         
+                <p><span class="title-info">Data de criação:</span> {{ formatDate(plano.date_created) }}</p>         
             </mdb-card-body>
           </mdb-card>
         </mdb-col>
@@ -27,6 +27,7 @@
   <script>
   import { mdbCard, mdbView, mdbCardBody } from 'mdbvue'
   import { axiosGet } from '../../services/http'
+  import { formatPrice, formatDate } from '../../utils/format'
   
   export default {
     name: 'Tables',
@@ -46,6 +47,12 @@
             console.log(response)
             this.plano = response.data
           });
+        },
+        formatPrice(value) {
+            return formatPrice(value);
+        },
+        formatDate(value) {
+            return formatDate(value);
         },
     },
     mounted() {

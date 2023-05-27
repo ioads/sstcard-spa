@@ -22,7 +22,7 @@
                     <tr v-for="(plano,i) in planos" :key="i">
                       <th scope="row">{{ i+1 }}</th>
                       <td>{{ plano.name }}</td>
-                      <td>{{ plano.amount }}</td>
+                      <td>{{ formatPrice(plano.amount) }}</td>
                       <td>{{ plano.days }}</td>
                       <td>{{ plano.installments }}</td>
                       <td>
@@ -41,6 +41,7 @@
   <script>
   import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody } from 'mdbvue'
   import { axiosGet } from '../../services/http'
+  import { formatPrice } from '../../utils/format'
   
   export default {
     name: 'Tables',
@@ -62,6 +63,9 @@
           axiosGet('planos').then((response) => {
             this.planos = response
           });
+        },
+        formatPrice(value) {
+            return formatPrice(value);
         },
     },
     mounted() {

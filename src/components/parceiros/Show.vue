@@ -10,11 +10,11 @@
                 <p><span class="title-info">Razão Social:</span> {{ parceiro.razao_social }}</p>    
                 <p><span class="title-info">Nome Fantasia:</span> {{  parceiro.nome_fantasia }}</p>         
                 <p><span class="title-info">CNPJ:</span> {{ parceiro.cnpj }}</p>   
-                <p><span class="title-info">Celular:</span> {{ parceiro.celular }}</p>         
+                <p><span class="title-info">Celular:</span> {{ formatPhone(parceiro.celular) }}</p>         
                 <p><span class="title-info">Telefone:</span> {{ parceiro.telefone }}</p>         
                 <p><span class="title-info">Fax:</span> {{ parceiro.fax }}</p>         
                 <p><span class="title-info">E-mail:</span> {{ parceiro.email }}</p>         
-                <p><span class="title-info">CEP:</span> {{ parceiro.cep }}</p>         
+                <p><span class="title-info">CEP:</span> {{ formatCep(parceiro.cep) }}</p>         
                 <p><span class="title-info">Logradouro:</span> {{ parceiro.logradouro }}</p>         
                 <p><span class="title-info">Número:</span> {{ parceiro.numero }}</p>         
                 <p><span class="title-info">Complemento:</span> {{ parceiro.complemento }}</p>         
@@ -22,7 +22,7 @@
                 <p><span class="title-info">Cidade:</span> {{ parceiro.cidade }}</p>         
                 <p><span class="title-info">UF:</span> {{ parceiro.uf }}</p>         
                 <p><span class="title-info">Status:</span> {{ parceiro.status }}</p>         
-                <p><span class="title-info">Cadastrado em:</span> {{ parceiro.created_at }}</p>              
+                <p><span class="title-info">Cadastrado em:</span> {{ formatDate(parceiro.created_at) }}</p>              
             </mdb-card-body>
           </mdb-card>
         </mdb-col>
@@ -33,6 +33,7 @@
   <script>
   import { mdbCard, mdbView, mdbCardBody, mdbRow, mdbCol } from 'mdbvue'
   import { axiosGet } from '../../services/http'
+  import { formatCep, formatPhone, formatDate } from '../../utils/format'
   
   export default {
     name: 'Tables',
@@ -54,6 +55,15 @@
             this.parceiro = response
           });
         },
+        formatPhone(value) {
+            return formatPhone(value);
+        },
+        formatCep(value) {
+            return formatCep(value);
+        },
+        formatDate(value) {
+            return formatDate(value);
+        }
     },
     mounted() {
         this.show()

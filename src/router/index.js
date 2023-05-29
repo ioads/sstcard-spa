@@ -119,6 +119,13 @@ export default new Router({
           props: { page: 2 },
         },
         {
+          path: 'planos/cadastrar',
+          name: 'planosCadastrar',
+          beforeEnter: Guard.gestor,
+          component: () => import('@/components/planos/Create.vue'),
+          props: { page: 2 },
+        },
+        {
           path: 'profile',
           name: 'profile',
           beforeEnter: Guard.gestor,

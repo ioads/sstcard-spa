@@ -7,6 +7,7 @@
               <h4 class="h4-responsive text-white">Planos</h4>
             </mdb-view>
             <mdb-card-body>
+              <mdb-btn class="btn-sm float-right" color="primary" @click="cadastrar()" type="button"><mdb-icon icon="plus" class="mr-3" /> Cadastrar </mdb-btn>
               <table class="table table-striped">
                 <thead>
                     <tr>
@@ -41,7 +42,7 @@
   </template>
   
   <script>
-  import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody } from 'mdbvue'
+  import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody , mdbBtn} from 'mdbvue'
   import { axiosGet } from '../../services/http'
   import { formatPrice } from '../../utils/format'
   
@@ -54,6 +55,7 @@
       mdbView,
       mdbCardBody,
       mdbIcon,
+      mdbBtn
     },
     data () {
       return {
@@ -69,6 +71,9 @@
         formatPrice(value) {
             return formatPrice(value);
         },
+        cadastrar() {
+            this.$router.push({ name: 'planosCadastrar' })
+        }
     },
     mounted() {
       this.list()

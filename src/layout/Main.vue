@@ -101,7 +101,7 @@
           </div>
           <p class="footer-copyright mb-0 py-3 text-center">
             &copy; {{ new Date().getFullYear() }} Copyright:
-            <a href="#"> sstcard.com </a>
+            <a href="#"> sstcard.com.br </a>
           </p>
         </ftr>
       </main>

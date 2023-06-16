@@ -42,8 +42,7 @@
   
   <script>
   import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody, mdbBtn } from 'mdbvue'
-  import { axiosGet, axiosPut } from '../../services/http'
-  import axios from 'axios';
+  import { axiosGet, axiosPut, axiosExcel, axiosPdf } from '../../services/http'
   
   export default {
     name: 'Tables',
@@ -73,29 +72,14 @@
           });
         },
         exportarExcel() {
-          axios.get(process.env.VUE_APP_API_URL + '/export/excel/clientes',
-              {responseType: 'arraybuffer'})
-          .then(response => {
-            console.log(response.data)
-                var fileURL = window.URL.createObjectURL(new Blob([response.data]));
-                var fileLink = document.createElement('a');
-                fileLink.href = fileURL;
-                fileLink.setAttribute('download', 'clientes.xlsx');
-              document.body.appendChild(fileLink);
-              fileLink.click();
-            })
+          axiosExcel('/export/excel/clientes', 'clientes').then((response) => {
+            console.log(response)
+          });          
         },
         exportarPdf() {
-          axios.get(process.env.VUE_APP_API_URL + '/export/pdf/clientes',
-              {responseType: 'blob'})
-          .then(response => {
-            var fileURL = window.URL.createObjectURL(new Blob([response.data], {type: 'application/pdf'}));
-            var fileLink = document.createElement('a');
-            fileLink.href = fileURL;
-            fileLink.setAttribute('download', 'file.pdf');
-            document.body.appendChild(fileLink);
-            fileLink.click();
-          })
+          axiosPdf('/export/pdf/clientes', 'clientes').then((response) => {
+            console.log(response)
+          });
         }
     },
     mounted() {

@@ -7,6 +7,8 @@
               <h4 class="h4-responsive text-white">Clientes</h4>
             </mdb-view>
             <mdb-card-body>
+              <mdb-btn class="btn-sm float-right" color="warning" @click="exportarPdf()" type="button"><mdb-icon icon="download" class="mr-3" /> Exportar PDF </mdb-btn>
+              <mdb-btn class="btn-sm float-right" color="success" @click="exportarExcel()" type="button"><mdb-icon icon="download" class="mr-3" /> Exportar Excel </mdb-btn>
               <table class="table table-striped">
                 <thead>
                     <tr>
@@ -39,8 +41,9 @@
   </template>
   
   <script>
-  import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody } from 'mdbvue'
+  import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody, mdbBtn } from 'mdbvue'
   import { axiosGet, axiosPut } from '../../services/http'
+  import axios from 'axios';
   
   export default {
     name: 'Tables',
@@ -51,6 +54,7 @@
       mdbView,
       mdbCardBody,
       mdbIcon,
+      mdbBtn
     },
     data () {
       return {
@@ -67,6 +71,31 @@
           axiosPut('clientes/status', id).then(() => {
             this.$forceUpdate()
           });
+        },
+        exportarExcel() {
+          axios.get(process.env.VUE_APP_API_URL + '/export/excel/clientes',
+              {responseType: 'arraybuffer'})
+          .then(response => {
+            console.log(response.data)
+                var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                var fileLink = document.createElement('a');
+                fileLink.href = fileURL;
+                fileLink.setAttribute('download', 'clientes.xlsx');
+              document.body.appendChild(fileLink);
+              fileLink.click();
+            })
+        },
+        exportarPdf() {
+          axios.get(process.env.VUE_APP_API_URL + '/export/pdf/clientes',
+              {responseType: 'blob'})
+          .then(response => {
+            var fileURL = window.URL.createObjectURL(new Blob([response.data], {type: 'application/pdf'}));
+            var fileLink = document.createElement('a');
+            fileLink.href = fileURL;
+            fileLink.setAttribute('download', 'file.pdf');
+            document.body.appendChild(fileLink);
+            fileLink.click();
+          })
         }
     },
     mounted() {

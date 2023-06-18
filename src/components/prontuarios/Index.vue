@@ -48,7 +48,21 @@
     methods: {
       search() {
           axiosGet('clientes/prontuario/'+this.numero_prontuario).then((response) => {
-              alert(response.data)
+            if(response.success == 'false') {
+              this.$swal({
+                title: 'Erro!',
+                text: response.data,
+                icon: 'error',
+                confirmButtonText: 'Ok'
+              })
+            } else {
+              this.$swal({
+                title: 'Sucesso!',
+                text: response.data,
+                icon: 'success',
+                confirmButtonText: 'Ok'
+              })
+            }
           });
         },
     },

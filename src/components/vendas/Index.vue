@@ -8,6 +8,8 @@
             </mdb-view>
             <mdb-card-body>
             <mdb-btn class="btn-sm float-right" color="primary" @click="cadastrar()" type="button"><mdb-icon icon="plus" class="mr-3" /> Cadastrar </mdb-btn>
+              <mdb-btn class="btn-sm float-right" color="warning" @click="exportarPdf()" type="button"><mdb-icon icon="download" class="mr-3" /> Exportar PDF </mdb-btn>
+              <mdb-btn class="btn-sm float-right" color="success" @click="exportarExcel()" type="button"><mdb-icon icon="download" class="mr-3" /> Exportar Excel </mdb-btn>
               <table class="table table-striped">
                 <thead>
                     <tr>
@@ -44,7 +46,7 @@
   
   <script>
   import { mdbIcon, mdbRow, mdbCol, mdbCard, mdbView, mdbCardBody, mdbBtn } from 'mdbvue'
-  import { axiosGet } from '../../services/http'
+  import { axiosGet, axiosExcel, axiosPdf } from '../../services/http'
   
   export default {
     name: 'Tables',
@@ -70,6 +72,16 @@
         },
         cadastrar() {
             this.$router.push({ name: 'vendasCadastrar' })
+        },
+        exportarExcel() {
+          axiosExcel('/export/excel/vendas', 'vendas').then((response) => {
+            console.log(response)
+          });          
+        },
+        exportarPdf() {
+          axiosPdf('/export/pdf/vendas', 'vendas').then((response) => {
+            console.log(response)
+          });          
         }
     },
     mounted() {

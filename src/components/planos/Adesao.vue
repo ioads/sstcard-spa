@@ -221,6 +221,8 @@
                           wrapperClass="mb-4"
                           />
                         </mdb-col>
+                        <!-- Declaro que li e aceitei os termos do contrato.
+                        <input type="checkbox"/> -->
                       </mdb-row>
                       <mdb-btn color="primary" type="submit"> Enviar </mdb-btn>
                     </form>

@@ -104,7 +104,7 @@
             invoice_reminder: this.invoice_reminder
           };
           axiosPost('planos', payload).then((response) => {
-            console.log(response)
+            this.$swal(response);
           });
         },
     },
